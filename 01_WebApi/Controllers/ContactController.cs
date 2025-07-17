@@ -1,6 +1,7 @@
 ﻿using Application.Service.Interface;
 using Application.ViewModel;
 using Core.Entity;
+using Core.Message.Command;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using WebApi.Extensions;
@@ -10,7 +11,7 @@ namespace WebApi.Controllers;
 [ApiController]
 public class ContactController : ControllerBase
 {
-    // Contrller de contatos 
+    // Controller de contatos 
     private readonly IContactService _contactService;
     private readonly IMemoryCache _cache;
 
@@ -96,17 +97,22 @@ public class ContactController : ControllerBase
                 return BadRequest(new ResultViewModel<Contact>(ModelState.GetErrors()));
             }
 
-            var contact = new Contact
-            {
-                Name = model.Name,
-                Phone = model.Phone,
-                Email = model.Email,
-                DddId = model.DddId,
-            };
+            //var contact = new Contact
+            //{
+            //    Name = model.Name,
+            //    Phone = model.Phone,
+            //    Email = model.Email,
+            //    DddId = model.DddId,
+            //};
 
-            await _contactService.CreateAsync(contact);
+            //await _contactService.CreateAsync(contact);
 
-            return Created($"api/v1/contacts/{contact.Id}", new ResultViewModel<Contact>(contact));
+            var command = new CreateContactCommand(model.Name, model.Phone, model.Email, model.DddId);
+
+            await _contactService.CreateMessageAsync(command);
+
+            //return Created($"api/v1/contacts/{contact.Id}", new ResultViewModel<Contact>(contact));
+            return Accepted(new ResultViewModel<CreateContactCommand>(command));
         }
         catch (Exception)
         {
@@ -134,7 +140,7 @@ public class ContactController : ControllerBase
             contact.Email = model.Email;
             contact.DddId = model.DddId;
 
-            await _contactService.EditAsync(contact);
+            //await _contactService.EditAsync(contact);
                         
             return Ok(new ResultViewModel<Contact>(contact));
         }
@@ -154,7 +160,7 @@ public class ContactController : ControllerBase
             if (contact is null)
                 return BadRequest(new ResultViewModel<Contact>("01X08 - Invalid contact id"));
 
-            await _contactService.DeleteAsync(contact);
+            //await _contactService.DeleteAsync(contact);
 
             return NoContent();
         }

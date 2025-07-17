@@ -1,3 +1,4 @@
+using Infraestructure.DI;
 using Prometheus;
 using WebApi.Extensions;
 
@@ -11,6 +12,9 @@ builder.ConfigureHttpClient();
 builder.ConfigureSwagger();
 builder.ConfigureServices();
 builder.ConfigurePersistanceApiUrls();
+
+// Add Message Broker Configuration.
+builder.Services.ConfigureMassTransit(builder.Configuration);
 
 var app = builder.Build();
 

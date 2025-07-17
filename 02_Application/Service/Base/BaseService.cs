@@ -1,15 +1,18 @@
 ﻿using Application.Service.Interface;
 using Core.Entity.Base;
+using Core.Message.Interface;
 using Core.Repository.Interface;
 
 namespace Application.Service.Base;
 public abstract class BaseService<T> : IService<T> where T : BaseEntity
 {
     protected readonly IHttpRepository<T> _repository;
+    protected readonly IMessagePublisher _messagePublisher;
 
-    protected BaseService(IHttpRepository<T> repository)
+    protected BaseService(IHttpRepository<T> repository, IMessagePublisher messagePublisher)
     {
         _repository = repository;
+        _messagePublisher = messagePublisher;
     }
 
     public virtual async Task<IList<T>> GetAllAsync()
@@ -22,17 +25,20 @@ public abstract class BaseService<T> : IService<T> where T : BaseEntity
         return await _repository.GetByIdAsync(id);
     }
 
-    public virtual async Task CreateAsync(T entity)
+    public virtual async Task CreateAsync(IMessageCommand command)
     {
-        await _repository.CreateAsync(entity);
+        //await _repository.CreateAsync(entity);
+        await _messagePublisher.Publish(command);
     }
-    public virtual async Task EditAsync(T entity)
+    public virtual async Task EditAsync(IMessageCommand command)
     {
-        await _repository.EditAsync(entity);
+        // await _repository.EditAsync(entity);
+        await _messagePublisher.Publish(command);
     }
 
-    public virtual async Task DeleteAsync(T entity)
+    public virtual async Task DeleteAsync(IMessageCommand command)
     {
-        await _repository.DeleteAsync(entity);
+        //await _repository.DeleteAsync(entity);
+        await _messagePublisher.Publish(command);
     }
 }
