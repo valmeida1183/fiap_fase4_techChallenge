@@ -6,6 +6,7 @@ public interface IContactService : IService<Contact>
 {
     Task<IList<Contact>> GetAllByDddAsync(int dddId);
     Task<string> ResilienceTest(bool fail);
-
-    Task CreateMessageAsync(CreateContactCommand command);
+    Task CreateAsync(CreateContactCommand command);
+    Task EditAsync(EditContactCommand command);
+    Task DeleteAsync(DeleteContactCommand command);
 }

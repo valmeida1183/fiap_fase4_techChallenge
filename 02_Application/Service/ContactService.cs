@@ -14,7 +14,7 @@ public class ContactService : BaseService<Contact>, IContactService
     public ContactService(IContactHttpRepository contactHttpRepository, IDirectDistanceDialingHttpRepository directDistanceDialingHttpRepository, IMessagePublisher messagePublisher) : base(contactHttpRepository, messagePublisher)
     {
         _contactHttpRepository = contactHttpRepository;
-        _directDistanceDialingHttpRepository = directDistanceDialingHttpRepository; 
+        _directDistanceDialingHttpRepository = directDistanceDialingHttpRepository;
     }
 
 
@@ -30,9 +30,19 @@ public class ContactService : BaseService<Contact>, IContactService
     public async Task<string> ResilienceTest(bool fail)
     {
         return await _contactHttpRepository.ResilienceTest(fail);
-    }
-    public async Task CreateMessageAsync(CreateContactCommand command)
+    }    
+
+    public async Task CreateAsync(CreateContactCommand command)
     {
+        await _messagePublisher.Publish(command);
+    }
+    public async Task EditAsync(EditContactCommand command)
+    {        
+        await _messagePublisher.Publish(command);
+    }
+
+    public async Task DeleteAsync(DeleteContactCommand command)
+    {        
         await _messagePublisher.Publish(command);
     }
 }

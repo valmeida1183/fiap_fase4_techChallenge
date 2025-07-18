@@ -24,21 +24,4 @@ public abstract class BaseService<T> : IService<T> where T : BaseEntity
     {
         return await _repository.GetByIdAsync(id);
     }
-
-    public virtual async Task CreateAsync(IMessageCommand command)
-    {
-        //await _repository.CreateAsync(entity);
-        await _messagePublisher.Publish(command);
-    }
-    public virtual async Task EditAsync(IMessageCommand command)
-    {
-        // await _repository.EditAsync(entity);
-        await _messagePublisher.Publish(command);
-    }
-
-    public virtual async Task DeleteAsync(IMessageCommand command)
-    {
-        //await _repository.DeleteAsync(entity);
-        await _messagePublisher.Publish(command);
-    }
 }

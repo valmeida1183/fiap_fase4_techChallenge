@@ -95,23 +95,12 @@ public class ContactController : ControllerBase
             if (!ModelState.IsValid) 
             {
                 return BadRequest(new ResultViewModel<Contact>(ModelState.GetErrors()));
-            }
-
-            //var contact = new Contact
-            //{
-            //    Name = model.Name,
-            //    Phone = model.Phone,
-            //    Email = model.Email,
-            //    DddId = model.DddId,
-            //};
-
-            //await _contactService.CreateAsync(contact);
+            }            
 
             var command = new CreateContactCommand(model.Name, model.Phone, model.Email, model.DddId);
 
-            await _contactService.CreateMessageAsync(command);
-
-            //return Created($"api/v1/contacts/{contact.Id}", new ResultViewModel<Contact>(contact));
+            await _contactService.CreateAsync(command);
+            
             return Accepted(new ResultViewModel<CreateContactCommand>(command));
         }
         catch (Exception)
@@ -135,14 +124,12 @@ public class ContactController : ControllerBase
             if (contact is null)
                 return BadRequest(new ResultViewModel<Contact>("01X06 - Invalid contact id"));
 
-            contact.Name = model.Name;
-            contact.Phone = model.Phone;
-            contact.Email = model.Email;
-            contact.DddId = model.DddId;
 
-            //await _contactService.EditAsync(contact);
-                        
-            return Ok(new ResultViewModel<Contact>(contact));
+            var command = new EditContactCommand(contact.Id, model.Name, model.Phone, model.Email, model.DddId);
+
+            await _contactService.EditAsync(command);
+
+            return Accepted(new ResultViewModel<EditContactCommand>(command));
         }
         catch (Exception)
         {
@@ -160,7 +147,9 @@ public class ContactController : ControllerBase
             if (contact is null)
                 return BadRequest(new ResultViewModel<Contact>("01X08 - Invalid contact id"));
 
-            //await _contactService.DeleteAsync(contact);
+            var command = new DeleteContactCommand(contact.Id);
+
+            await _contactService.DeleteAsync(command);
 
             return NoContent();
         }
