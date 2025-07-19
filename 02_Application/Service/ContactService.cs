@@ -10,11 +10,16 @@ public class ContactService : BaseService<Contact>, IContactService
 {
     private readonly IContactHttpRepository _contactHttpRepository;
     private readonly IDirectDistanceDialingHttpRepository _directDistanceDialingHttpRepository;
+    private readonly IMessagePublisher _messagePublisher;
 
-    public ContactService(IContactHttpRepository contactHttpRepository, IDirectDistanceDialingHttpRepository directDistanceDialingHttpRepository, IMessagePublisher messagePublisher) : base(contactHttpRepository, messagePublisher)
+    public ContactService(
+        IContactHttpRepository contactHttpRepository, 
+        IDirectDistanceDialingHttpRepository directDistanceDialingHttpRepository, 
+        IMessagePublisher messagePublisher) : base(contactHttpRepository)
     {
         _contactHttpRepository = contactHttpRepository;
         _directDistanceDialingHttpRepository = directDistanceDialingHttpRepository;
+        _messagePublisher = messagePublisher;
     }
 
 

@@ -7,7 +7,7 @@ using Core.Repository.Interface;
 namespace Application.Service;
 public class DirectDistanceDialingService : BaseService<DirectDistanceDialing>, IDirectDistanceDialingService
 {
-    public DirectDistanceDialingService(IDirectDistanceDialingHttpRepository repository, IMessagePublisher messagePublisher) : base(repository, messagePublisher)
+    public DirectDistanceDialingService(IDirectDistanceDialingHttpRepository repository) : base(repository)
     {        
     }
 }

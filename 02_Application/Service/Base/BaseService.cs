@@ -1,18 +1,15 @@
 ﻿using Application.Service.Interface;
 using Core.Entity.Base;
-using Core.Message.Interface;
 using Core.Repository.Interface;
 
 namespace Application.Service.Base;
 public abstract class BaseService<T> : IService<T> where T : BaseEntity
 {
-    protected readonly IHttpRepository<T> _repository;
-    protected readonly IMessagePublisher _messagePublisher;
+    protected readonly IHttpRepository<T> _repository;    
 
-    protected BaseService(IHttpRepository<T> repository, IMessagePublisher messagePublisher)
+    protected BaseService(IHttpRepository<T> repository)
     {
-        _repository = repository;
-        _messagePublisher = messagePublisher;
+        _repository = repository;       
     }
 
     public virtual async Task<IList<T>> GetAllAsync()

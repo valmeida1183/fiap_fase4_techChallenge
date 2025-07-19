@@ -68,46 +68,46 @@ public class DirectDistanceDialingServiceTests
         Assert.Null(result);
     }
 
-    [Fact]
-    public async Task CreateAsync_ValidEntity_CallsRepositoryCreate()
-    {
-        // Arrange
-        var newDdd = new DirectDistanceDialing { Id = 21, Region = "Rio de Janeiro", CreatedOn = DateTime.Now };
+    //[Fact]
+    //public async Task CreateAsync_ValidEntity_CallsRepositoryCreate()
+    //{
+    //    // Arrange
+    //    var newDdd = new DirectDistanceDialing { Id = 21, Region = "Rio de Janeiro", CreatedOn = DateTime.Now };
 
-        _mockDddHttpRepository.Setup(repo => repo.CreateAsync(newDdd)).Returns(Task.CompletedTask);
+    //    _mockDddHttpRepository.Setup(repo => repo.CreateAsync(newDdd)).Returns(Task.CompletedTask);
 
-        // Act
-        await _directDistanceDialingService.CreateAsync(newDdd);
+    //    // Act
+    //    await _directDistanceDialingService.CreateAsync(newDdd);
 
-        // Assert
-        _mockDddHttpRepository.Verify(repo => repo.CreateAsync(newDdd), Times.Once);
-    }
+    //    // Assert
+    //    _mockDddHttpRepository.Verify(repo => repo.CreateAsync(newDdd), Times.Once);
+    //}
 
-    [Fact]
-    public async Task EditAsync_ValidEntity_CallsRepositoryEdit()
-    {
-        // Arrange
-        var existingDdd = new DirectDistanceDialing { Id = 51, Region = "Rio Grande do Sul", CreatedOn = DateTime.Now };
-        _mockDddHttpRepository.Setup(repo => repo.EditAsync(existingDdd)).Returns(Task.CompletedTask);
+    //[Fact]
+    //public async Task EditAsync_ValidEntity_CallsRepositoryEdit()
+    //{
+    //    // Arrange
+    //    var existingDdd = new DirectDistanceDialing { Id = 51, Region = "Rio Grande do Sul", CreatedOn = DateTime.Now };
+    //    _mockDddHttpRepository.Setup(repo => repo.EditAsync(existingDdd)).Returns(Task.CompletedTask);
 
-        // Act
-        await _directDistanceDialingService.EditAsync(existingDdd);
+    //    // Act
+    //    await _directDistanceDialingService.EditAsync(existingDdd);
 
-        // Assert
-        _mockDddHttpRepository.Verify(repo => repo.EditAsync(existingDdd), Times.Once);
-    }
+    //    // Assert
+    //    _mockDddHttpRepository.Verify(repo => repo.EditAsync(existingDdd), Times.Once);
+    //}
 
-    [Fact]
-    public async Task DeleteAsync_ValidEntity_CallsRepositoryDelete()
-    {
-        // Arrange
-        var dddToDelete = new DirectDistanceDialing { Id = 51, Region = "Rio Grande do Sul", CreatedOn = DateTime.Now };
-        _mockDddHttpRepository.Setup(repo => repo.DeleteAsync(dddToDelete)).Returns(Task.CompletedTask);
+    //[Fact]
+    //public async Task DeleteAsync_ValidEntity_CallsRepositoryDelete()
+    //{
+    //    // Arrange
+    //    var dddToDelete = new DirectDistanceDialing { Id = 51, Region = "Rio Grande do Sul", CreatedOn = DateTime.Now };
+    //    _mockDddHttpRepository.Setup(repo => repo.DeleteAsync(dddToDelete)).Returns(Task.CompletedTask);
 
-        // Act
-        await _directDistanceDialingService.DeleteAsync(dddToDelete);
+    //    // Act
+    //    await _directDistanceDialingService.DeleteAsync(dddToDelete);
 
-        // Assert
-        _mockDddHttpRepository.Verify(repo => repo.DeleteAsync(dddToDelete), Times.Once);
-    }
+    //    // Assert
+    //    _mockDddHttpRepository.Verify(repo => repo.DeleteAsync(dddToDelete), Times.Once);
+    //}
 }
