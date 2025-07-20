@@ -43,7 +43,7 @@ public static class WebApiConfigurationExtension
 
         builder.Services.AddHttpClient("PersistanceClientApi", client =>
         {
-            client.BaseAddress = new Uri(builder.Configuration["PersistanceApiUrls:Https"]);
+            client.BaseAddress = new Uri(builder.Configuration["PersistanceApiUrls:Http"]);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         })
