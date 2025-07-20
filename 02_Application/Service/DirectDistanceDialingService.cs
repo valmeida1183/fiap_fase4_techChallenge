@@ -1,6 +1,7 @@
 ﻿using Application.Service.Base;
 using Application.Service.Interface;
 using Core.Entity;
+using Core.Message.Interface;
 using Core.Repository.Interface;
 
 namespace Application.Service;

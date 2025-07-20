@@ -1,3 +1,4 @@
+using Infraestructure.DI;
 using Prometheus;
 using WebApi.Extensions;
 
@@ -12,19 +13,24 @@ builder.ConfigureSwagger();
 builder.ConfigureServices();
 builder.ConfigurePersistanceApiUrls();
 
+// Add Message Broker Configuration.
+builder.Services.ConfigureMassTransit(builder.Configuration);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseMetricServer();
 app.UseHttpMetrics();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
